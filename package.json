@@ -1,5 +1,5 @@
 {
-  "name": "tab-counter-plus",
+  "name": "dynamic-tab-counter",
   "description": "Shows the number of tabs in each window. Efficient and customizable.",
   "author": "Oriol Brufau",
   "license": "Apache-2.0",
