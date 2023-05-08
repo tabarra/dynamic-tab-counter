@@ -1,0 +1,21 @@
+{
+  "name": "dynamic-tab-counter",
+  "version": "4.0.0",
+  "description": "Shows the number of tabs in each window with customizable threshold colors. ",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tabarra/dynamic-tab-counter.git"
+  },
+  "keywords": [],
+  "author": "Oriol Brufau and Andre Tabarra",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/tabarra/dynamic-tab-counter/issues"
+  },
+  "homepage": "https://github.com/tabarra/dynamic-tab-counter#readme",
+  "devDependencies": {
+    "web-ext": "^7.6.2"
+  }
+}

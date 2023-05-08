@@ -10,6 +10,12 @@
     "16": "icon16.gif",
     "64": "icon.svg"
   },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "dynamic-tab-counter2@tabarra",
+      "strict_min_version": "63.0"
+    }
+  },
   "permissions": [
     "storage"
   ],
