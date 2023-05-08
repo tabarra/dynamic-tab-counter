@@ -38,31 +38,13 @@
     input[type = "color"] {
       vertical-align: middle;
     }
-    [data-if] {
-      display: none;
-    }
-    input:nth-of-type(1):checked ~ [data-if ~= n1],
-    input:nth-of-type(2):checked ~ [data-if ~= n2],
-    input:nth-of-type(3):checked ~ [data-if ~= n3] {
-      display: block;
-    }
     br[data-bigger] {
       margin-bottom: 1.2em;
     }
   </style>
   <h1>Dynamic Tab Counter Preferences</h1>
   <form>
-    <h3>Counter style</h3>
-
-    <input type="radio" name="useBadge" id="useBadge-false" value="false" checked />
-    <label for="useBadge-false">Use SVG icon</label>
-    <br />
-
-    <input type="radio" name="useBadge" id="useBadge-true" value="true" />
-    <label for="useBadge-true">Use WebExtension badge</label>
-    <br />
-
-    <div data-if="n1 n2">
+    <div>
       <h3>Counter data</h3>
       <input type="radio" name="countAll" id="countAll-false" value="false" checked />
       <label for="countAll-false">Count tabs separately for each window</label>
@@ -78,7 +60,7 @@
       <h3>Counter colors</h3>
     </div>
 
-    <div data-if="n1">
+    <div>
       <input type="checkbox" id="bgColorEnabled" />
       <input type="color" id="bgColor" value="#ffffff" />
       <label for="bgColor">Background color</label>
@@ -87,17 +69,6 @@
       <input type="checkbox" id="colorEnabled" checked />
       <input type="color" id="color" value="#000000" />
       <label for="color">Text color</label>
-    </div>
-
-    <div data-if="n2">
-      <input type="checkbox" id="badgeBgColorEnabled" checked />
-      <input type="color" id="badgeBgColor" value="#4b4b4b" />
-      <label for="badgeBgColor">Badge background color</label>
-      <br />
-
-      <input type="checkbox" id="badgeColorEnabled" checked />
-      <input type="color" id="badgeColor" value="#ffffff" />
-      <label for="badgeColor">Badge text color</label>
     </div>
 
     <p>

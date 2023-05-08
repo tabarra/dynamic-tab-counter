@@ -13,18 +13,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
+// This file has been modified by Tabarra.
 
 let prefs = {
   countAll: false,
-  useBadge: false,
   bgColor: "#ffffff",
   bgColorEnabled: false,
-  badgeBgColor: "#4b4b4b",
-  badgeBgColorEnabled: true,
   color: "#000000",
   colorEnabled: true,
-  badgeColor: "#ffffff",
-  badgeColorEnabled: true,
   titlePrefix: "Open tabs: ",
 };
 
@@ -96,11 +92,7 @@ function show(windowId, num = -1) {
   const text = num + "";
   const title = prefs.titlePrefix + text;
   browser.browserAction.setTitle({title, windowId});
-  if (prefs.useBadge) {
-    browser.browserAction.setBadgeText({text, windowId});
-  } else {
-    browser.browserAction.setIcon({path: svgDataIcon(text), windowId});
-  }
+  browser.browserAction.setIcon({path: svgDataIcon(text), windowId});
 }
 
 function update(windowId, num) {
@@ -118,26 +110,17 @@ function increase(windowId, increment) {
 }
 
 function initCounters() {
-  if (prefs.useBadge) {
-    const bgColor = prefs.badgeBgColorEnabled ? prefs.badgeBgColor : "transparent";
-    browser.browserAction.setBadgeBackgroundColor({color: bgColor});
-
-    const color = prefs.badgeColorEnabled ? prefs.badgeColor : "transparent";
-    browser.browserAction.setBadgeTextColor({color});
-  } else {
-    svgDataIcon = svgDataIcon_;
-    if (!prefs.countAll) {
-      // Set a transparent icon globally to prevent the default icon from flickering
-      // when opening a new window.
-      browser.browserAction.setIcon({imageData: new ImageData(1, 1)});
-    }
+  svgDataIcon = svgDataIcon_;
+  if (!prefs.countAll) {
+    // Set a transparent icon globally to prevent the default icon from flickering
+    // when opening a new window.
+    browser.browserAction.setIcon({imageData: new ImageData(1, 1)});
   }
 }
 
 function clearCounters() {
   for (const windowId of numTabs.keys()) {
     browser.browserAction.setTitle({title: null, windowId});
-    browser.browserAction.setBadgeText({text: null, windowId});
     browser.browserAction.setIcon({path: null, windowId});
   }
   browser.browserAction.setIcon({imageData: null});
@@ -217,11 +200,6 @@ function shutdown() {
           return;
         }
 
-        // Only clear counters when changing the counter type, this avoids flickering
-        // in other cases.
-        if ("useBadge" in newPrefs) {
-          clearCounters();
-        }
         initCounters();
 
         // Rerender current counters
