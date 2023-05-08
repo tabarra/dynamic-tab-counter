@@ -62,6 +62,15 @@
     }
     return true;
   }
+  function cleanJson(target) {
+    try {
+      target.value = JSON.stringify(
+        JSON.parse(target.value),
+        null,
+        2
+      )
+    } catch (error) {}
+  }
   const defaultPrefs = {};
   const initialPrefs = await browser.runtime.sendMessage({request: "getPrefs"});
   const currentPrefs = {...initialPrefs};
@@ -91,15 +100,28 @@
           defaultPrefs[pref] = getValue(item);
         }
         setValue(item, value);
+        if(item.type === 'textarea') {
+          cleanJson(item);
+        }
       }
     }
     undo.disabled = true;
     reset.disabled = objectEq(currentPrefs, defaultPrefs);
   }
   setValues(true);
-  form.addEventListener("input", ({target}) => {
+  const processInputChangeEvent = ({target}) => {
+    const value = getValue(target);
+    let jsonData;
+    if(target.type === 'textarea'){
+      try {
+        jsonData = JSON.parse(value)
+        target.setCustomValidity('');
+      } catch (error) {
+        target.setCustomValidity(error.message);
+        return;
+      }
+    }
     if (target.validity.valid) {
-      const value = getValue(target);
       const pref = target.name || target.id;
       if (value !== currentPrefs[pref]) {
         savePrefs({[pref]: value});
@@ -107,7 +129,8 @@
         reset.disabled = objectEq(currentPrefs, defaultPrefs);
       }
     }
-  });
+  }
+  form.addEventListener("input", processInputChangeEvent);
   undo.addEventListener("click", () => {
     savePrefs(initialPrefs);
     setValues(false);

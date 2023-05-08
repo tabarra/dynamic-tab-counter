@@ -17,11 +17,16 @@
 
 let prefs = {
   countAll: false,
+  titlePrefix: "Open tabs: ",
+
   bgColor: "#ffffff",
   bgColorEnabled: false,
-  color: "#000000",
-  colorEnabled: true,
-  titlePrefix: "Open tabs: ",
+
+  defaultStyle: '{\n  "fill": "#000000",\n  "fontWeight": "400"\n}',
+  mediumThreshold: 10,
+  mediumStyle: '{\n  "fill": "#CC8500", \n  "fontWeight": "700"\n}',
+  highThreshold: 20,
+  highStyle: '{\n  "fill": "#A62B2B",\n  "fontWeight": "700"\n}'
 };
 
 const numTabs = new Map();
@@ -31,6 +36,23 @@ const events = {
   tabs: new Map(),
   windows: new Map(),
 };
+
+function getCountStyle(num) {
+  num = parseInt(num);
+  let customStyle = prefs.defaultStyle;
+  if (num >= prefs.highThreshold) {
+    customStyle = prefs.highStyle;
+  } else if (num >= prefs.mediumThreshold) {
+    customStyle = prefs.mediumStyle;
+  }
+
+  try {
+    return JSON.parse(customStyle);
+  } catch (error) {
+    return {};
+  }
+}
+
 
 let svgDataIcon;
 function svgDataIcon_(text) {
@@ -43,12 +65,12 @@ function svgDataIcon_(text) {
   const node = doc.createElementNS(root.namespaceURI, "text");
   node.setAttribute("x", "50%");
   node.setAttribute("y", "50%");
+  const customStyle = getCountStyle(text);
   Object.assign(node.style, {
     dominantBaseline: "central",
     textAnchor: "middle",
     fontFamily: "'Segoe UI', 'DejaVu Sans', sans-serif",
-    fill: prefs.colorEnabled ? prefs.color : "transparent",
-  });
+  }, customStyle);
   root.style.backgroundColor = prefs.bgColorEnabled ? prefs.bgColor : "transparent";
   root.appendChild(node);
   // eslint-disable-next-line no-shadow
