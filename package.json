@@ -1,6 +1,6 @@
 {
   "name": "dynamic-tab-counter",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "description": "Shows the number of tabs in each window with customizable threshold colors. ",
   "main": "index.js",
   "scripts": {},

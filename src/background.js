@@ -26,7 +26,7 @@ let prefs = {
   mediumThreshold: 10,
   mediumStyle: '{\n  "fill": "#CC8500", \n  "fontWeight": "700"\n}',
   highThreshold: 20,
-  highStyle: '{\n  "fill": "#A62B2B",\n  "fontWeight": "700"\n}'
+  highStyle: '{\n  "fill": "#A62B2B",\n  "fontWeight": "900"\n}'
 };
 
 const numTabs = new Map();
@@ -65,16 +65,17 @@ function svgDataIcon_(text) {
   const node = doc.createElementNS(root.namespaceURI, "text");
   node.setAttribute("x", "50%");
   node.setAttribute("y", "50%");
-  const customStyle = getCountStyle(text);
   Object.assign(node.style, {
     dominantBaseline: "central",
     textAnchor: "middle",
     fontFamily: "'Segoe UI', 'DejaVu Sans', sans-serif",
-  }, customStyle);
+  });
   root.style.backgroundColor = prefs.bgColorEnabled ? prefs.bgColor : "transparent";
   root.appendChild(node);
   // eslint-disable-next-line no-shadow
   svgDataIcon = function(text) {
+    const customStyle = getCountStyle(text);
+    Object.assign(node.style, customStyle);
     const l = text.length;
     node.style.fontSize = `${14 - l}px`;
     if (l > 2) {
