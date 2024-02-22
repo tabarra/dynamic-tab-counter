@@ -1,6 +1,6 @@
 # Dynamic Tab Counter
 
-This is a form from [@Loirooriol/tab-counter-plus](https://github.com/Loirooriol/tab-counter-plus) to add the functionality of changing the counter color/style depending on how many open tabs.  
+This is a fork from [@Loirooriol/tab-counter-plus](https://github.com/Loirooriol/tab-counter-plus) to add the functionality of changing the counter color/style depending on how many open tabs.  
 I'm known for having a tad too many tabs opened at all times (most of the time above 100 across 4 windows) and I hope this very much "in your face" counter will help me keep the tabs under control.  
   
 **Coding style disclaimer:**  
